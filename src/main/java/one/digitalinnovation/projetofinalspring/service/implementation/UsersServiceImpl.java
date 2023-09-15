@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import one.digitalinnovation.projetofinalspring.model.Users;
 import one.digitalinnovation.projetofinalspring.model.UsersRepository;
-import one.digitalinnovation.projetofinalspring.service.JSONPlaceHolderUsersService;
 import one.digitalinnovation.projetofinalspring.service.UsersService;
 
 @Service
@@ -15,8 +14,6 @@ public class UsersServiceImpl implements UsersService{
     // Singleton: Injetar os componentes do Spring com @Autowired.
 	@Autowired
 	private UsersRepository usersRepository;
-	@Autowired
-	private JSONPlaceHolderUsersService jsonPlaceHolderUsersService;
 	
 	// Strategy: Implementar os métodos definidos na interface.
 	// Facade: Abstrair integrações com subsistemas, provendo uma interface simples.
@@ -28,27 +25,20 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 	@Override
-	public Users buscarPorId(String id) {
+	public Users buscarPorId(Long id) {
 		// Buscar User por ID.
 		Optional<Users> user = usersRepository.findById(id);
 		return user.get();
 	}
 
 	@Override
-	public void inserir(Users user) {
-        // Verificar se o User já existe (pelo ID).
-        String id = user.getUserId();
-
-		usersRepository.findById(id).orElseGet(() -> {
-			// Caso não exista, integrar com a API e persistir o retorno.
-            Users novoUser = jsonPlaceHolderUsersService.consultarUsers(id);
-			usersRepository.save(novoUser);
-			return novoUser;
-		});
+	public Users inserir(Users user) {
+		usersRepository.save(user);
+		return user;
 	}
 
 	@Override
-	public void atualizar(String id, Users user) {
+	public Users atualizar(Long id, Users user) {
 		// Buscar User por ID, caso exista:
 		Optional<Users> userBd = usersRepository.findById(id);
 		if (userBd.isPresent()) {
@@ -56,10 +46,11 @@ public class UsersServiceImpl implements UsersService{
             user.setUserId(id);
             usersRepository.save(user);
 		}
+		return user;
 	}
 
 	@Override
-	public void deletar(String id) {
+	public void deletar(Long id) {
 		// Deletar User por ID.
 		usersRepository.deleteById(id);
 	}

@@ -26,7 +26,7 @@ public class UsersRestController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Users> buscarPorId(@PathVariable String id) {
+	public ResponseEntity<Users> buscarPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(usersService.buscarPorId(id));
 	}
 
@@ -37,13 +37,13 @@ public class UsersRestController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Users> atualizar(@PathVariable String id, @RequestBody Users user) {
+	public ResponseEntity<Users> atualizar(@PathVariable Long id, @RequestBody Users user) {
 		usersService.atualizar(id, user);
 		return ResponseEntity.ok(user);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable String id) {
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		usersService.deletar(id);
 		return ResponseEntity.ok().build();
 	}

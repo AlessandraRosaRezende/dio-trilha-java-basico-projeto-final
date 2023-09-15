@@ -5,11 +5,11 @@ import one.digitalinnovation.projetofinalspring.model.Users;
 public interface UsersService {
     Iterable<Users> buscarTodos();
 
-	Users buscarPorId(String id);
+	Users buscarPorId(Long id);
 
-	void inserir(Users user);
+	Users inserir(Users user);
 
-	void atualizar(String id, Users user);
+	Users atualizar(Long id, Users user);
 
-	void deletar(String id);
+	void deletar(Long id);
 }

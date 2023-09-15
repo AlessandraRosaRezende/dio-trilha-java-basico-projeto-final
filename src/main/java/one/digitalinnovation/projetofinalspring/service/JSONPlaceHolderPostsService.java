@@ -15,8 +15,9 @@ import one.digitalinnovation.projetofinalspring.model.Posts;
  * 
  * @author AlessandraRosaRezende
  */
+
 @FeignClient(name = "id", url = "https://jsonplaceholder.typicode.com/posts")
 public interface JSONPlaceHolderPostsService {
     @GetMapping("/{id}")
-	Posts consultarPosts(@PathVariable("id") String id);
+	Posts consultarPosts(@PathVariable("id") Long id);
 }

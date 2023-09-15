@@ -6,11 +6,11 @@ public interface PostsService {
     
     Iterable<Posts> buscarTodos();
 
-	Posts buscarPorId(String id);
+	Posts buscarPorId(Long id);
 
-	void inserir(Posts post);
+	Posts inserir(Posts post);
 
-	void atualizar(String id, Posts post);
+	Posts atualizar(Long id, Posts post);
 
-	void deletar(String id);
+	void deletar(Long id);
 }

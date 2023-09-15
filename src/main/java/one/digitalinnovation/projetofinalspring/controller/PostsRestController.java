@@ -26,7 +26,7 @@ public class PostsRestController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Posts> buscarPorId(@PathVariable String id) {
+	public ResponseEntity<Posts> buscarPorId(@PathVariable Long id) {
 		return ResponseEntity.ok(postsService.buscarPorId(id));
 	}
 
@@ -37,13 +37,13 @@ public class PostsRestController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Posts> atualizar(@PathVariable String id, @RequestBody Posts post) {
+	public ResponseEntity<Posts> atualizar(@PathVariable Long id, @RequestBody Posts post) {
 		postsService.atualizar(id, post);
 		return ResponseEntity.ok(post);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable String id) {
+	public ResponseEntity<Void> deletar(@PathVariable Long id) {
 		postsService.deletar(id);
 		return ResponseEntity.ok().build();
 	}

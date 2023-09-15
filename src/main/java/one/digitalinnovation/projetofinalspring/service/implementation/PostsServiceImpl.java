@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import one.digitalinnovation.projetofinalspring.model.Posts;
 import one.digitalinnovation.projetofinalspring.model.PostsRepository;
-import one.digitalinnovation.projetofinalspring.service.JSONPlaceHolderPostsService;
 import one.digitalinnovation.projetofinalspring.service.PostsService;
 
 @Service
@@ -15,8 +14,6 @@ public class PostsServiceImpl implements PostsService{
     // Singleton: Injetar os componentes do Spring com @Autowired.
 	@Autowired
 	private PostsRepository postsRepository;
-	@Autowired
-	private JSONPlaceHolderPostsService jsonPlaceHolderPostsService;
 	
 	// Strategy: Implementar os métodos definidos na interface.
 	// Facade: Abstrair integrações com subsistemas, provendo uma interface simples.
@@ -28,27 +25,20 @@ public class PostsServiceImpl implements PostsService{
 	}
 
 	@Override
-	public Posts buscarPorId(String id) {
+	public Posts buscarPorId(Long id) {
 		// Buscar Post por ID.
 		Optional<Posts> post = postsRepository.findById(id);
 		return post.get();
 	}
 
 	@Override
-	public void inserir(Posts post) {
-        // Verificar se o Post já existe (pelo ID).
-        String id = post.getPostId();
-
-        postsRepository.findById(id).orElseGet(() -> {
-            // Caso não exista, integrar com a API e persistir o retorno.
-            Posts novoPost = jsonPlaceHolderPostsService.consultarPosts(id);
-            postsRepository.save(novoPost);
-            return novoPost;
-        });
+	public Posts inserir(Posts post) {
+		postsRepository.save(post);
+        return post;
 	}
 
 	@Override
-	public void atualizar(String id, Posts post) {
+	public Posts atualizar(Long id, Posts post) {
 		// Buscar Post por ID, caso exista:
         Optional<Posts> postBd = postsRepository.findById(id);
         if (postBd.isPresent()) {
@@ -56,10 +46,11 @@ public class PostsServiceImpl implements PostsService{
             post.setPostId(id);
             postsRepository.save(post);
         }
+		return post;
 	}
 
 	@Override
-	public void deletar(String id) {
+	public void deletar(Long id) {
 		// Deletar User por ID.
 		postsRepository.deleteById(id);
 	}
