@@ -58,6 +58,13 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
+
+			<!-- adicionado manualmente - https://stackoverflow.com/questions/72397763/error-starting-springboot-when-update-version-to-2-7-0-an-attempt-was-made-to-c -->
+			<dependency>
+            <groupId>io.github.classgraph</groupId>
+            <artifactId>classgraph</artifactId>
+            <version>4.8.139</version>
+        </dependency>
 		</dependencies>
 	</dependencyManagement>
 
